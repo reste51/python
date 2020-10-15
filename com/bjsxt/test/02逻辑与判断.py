@@ -34,4 +34,25 @@ sum = 0
 # for i in "Hello":
 #     print(i)
 
+# 九九乘法表
+# i =1
+# while i<10:
+#     j=1
+#     while j<=i:
+#         # 手工设置分隔符, 默认为 \n
+#         print('%d*%d=%d'%(i,j,i*j),end='\t')
+#
+#         if i==j: # 相等 换行
+#             print()
+#         j+=1
+#     i+=1
+
+for i in range(1,10):
+    for j in range(1,i+1):
+        print('%d*%d=%d' % (i, j, i * j), end='\t')
+        if i==j:  # 相等 换行
+            print()
+
+
+
 
