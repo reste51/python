@@ -18,15 +18,17 @@ print(str[5:2:-1])  # <-  fed
 
 print(str[4::-1])   # <-  包含end： a ( 闭区间)  edcba
 
-print('================')
+print('='*200)
 
 mystr = 'hello world and bjsxt yunshuxueyuan sxt beijing'
 
+# 找不到会抛异常  raise
 print(mystr.index('world'))
 print(mystr.rindex('sxt'))  # Return the highest index
 
+print(mystr.find("abc"))  # 找不到会返回-1
 
 
-
-
-
+# 每个单词的首字母 大写
+print(mystr.title())
+print(mystr.upper())

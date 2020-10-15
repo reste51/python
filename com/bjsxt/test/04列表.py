@@ -27,7 +27,7 @@ print(list[::-1])
 for i in list:
     print(i)
 
-print('=======================')
+print('/'*100)
 
 # 遍历每个元素 和  索引
 for k,v in enumerate(list):
@@ -36,7 +36,7 @@ for k,v in enumerate(list):
 # print(type(enumerate(list)))
 # print(type(list))
 
-print('=======================')
+print('='*100)
 
 # 添加
 list.append("qwer")
@@ -48,7 +48,7 @@ list.extend(list2) # 相当于java的addAll 添加集合到尾部
 list[0] = 'world'
 print(list)
 
-print('=======================')
+print('*'*100)
 
 # index, 查找的值,start(闭),end(开)
 # 如果没有找到则 ValueError: 123 is not in list
@@ -90,3 +90,10 @@ print(list)
 original_list = [1,2,3,4]
 new_list = [2*x for x in original_list]
 print(new_list)  # [2, 4, 6, 8]
+
+
+print('-'*100)
+
+# 一个有趣的用例是定义一个具有恒定值的列表，假设为零。
+print([0]*4)  # [0, 0, 0, 0]
+
