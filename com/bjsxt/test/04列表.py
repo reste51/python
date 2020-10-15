@@ -79,3 +79,14 @@ print(list)
 list = [1,2,3]
 list += list
 print(list)
+
+'''
+列表解析
+
+在其他列表的基础上，列表解析为创建列表提供一种优雅的方式。
+以下代码通过将旧列表的每个对象乘两次，创建一个新的列表。
+'''
+# Multiplying each element in a list by 2
+original_list = [1,2,3,4]
+new_list = [2*x for x in original_list]
+print(new_list)  # [2, 4, 6, 8]
