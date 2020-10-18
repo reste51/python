@@ -11,9 +11,11 @@
     @classmethod  def getName(cls): cls.name='类属性值'
     @staticmethod  def getName(): Person.name='类属性值'
 
-    特殊方法：
+    特殊方法, 由解释器隐式调用：
         __str__()	self	和toString
         __del__()	self	对象回收时候回调
+        __new__()	cls	    对象创建的回调方法
+        __init__()  self    已经创建了对象，初始化对象回调方法
 
 '''
 
