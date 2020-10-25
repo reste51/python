@@ -96,5 +96,43 @@ print(arr)
 arr = np.zeros(9).reshape(3,3)
 print(arr)
 
+arr = np.empty((2,3))
+print(arr)
+
+# where 筛选条件运用: condition, arr, defaultValue
+arr = np.random.randint(1,10,9).reshape(3,3)
+print(np.where(arr>5, arr, 0.1))
+
+# 遍历数组
+print(arr, arr[2][2])
+
+# 切片  [ 行, 列]: [start_row:end_row:step_row,  start_col:end_col:step_col]
+# [1,10) size:16;
+arr = np.random.randint(1,10,16).reshape(4,4)
+print(arr)
+
+print('*'*100)
+
+# 取出第一行的所有值
+print(arr[0])
+# 取第一列： 行数取所有行, 列取第一个
+print(arr[:,0])
+
+# 取第一行和第三行
+print(arr[0::2,])
+
+print('*'*100)
+# 取第二行和 第四列
+print(arr[1::3,3::])
+
+print('*'*100)
+# 取第二列和 第四列
+print(arr[::,1::2])
+
+print('*'*100)
+# 取 第一行和第三行的  第二/四列
+print(arr)
+print(arr[::2,1::2])
+
 
 
