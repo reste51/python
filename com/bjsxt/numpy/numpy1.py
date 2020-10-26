@@ -134,5 +134,8 @@ print('*'*100)
 print(arr)
 print(arr[::2,1::2])
 
+print('*'*100)
 
 
+c = np.random.randn(6)
+print(c)
