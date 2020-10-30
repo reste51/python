@@ -44,7 +44,7 @@ print(arr.shape)
 
 # 基本运算
 a = np.random.random(6)
-b = np.random.rand(6)
+b = np.random.rand(6)   # 随机数范围： [0, 1)
 c = np.random.randn(6)
 print(a)
 print(b)
