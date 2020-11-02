@@ -51,6 +51,9 @@ print(class_23.shape)
 age_no_na = titanic[titanic['Age'].notna()]
 print(age_no_na.shape)
 
+# slice -> I’m interested in rows 10 till 25 and columns 3 to 5.
+splice_result = titanic.iloc[10:26, 2:5]
+print(splice_result)
 
 
 
