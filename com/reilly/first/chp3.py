@@ -89,5 +89,36 @@ from collections import  defaultdict
 by_letter = defaultdict(list)
 for word in words:
     by_letter[word[0]].append(word)
-#{'a': ['apple', 'atom'], 'b': ['bat', 'bar', 'book']}
+# {'a': ['apple', 'atom'], 'b': ['bat', 'bar', 'book']}
 print(dict(by_letter))
+
+print('*'*100)
+
+# 有效 字典的键类型
+print(hash('string'))
+print(hash((1,2 )))
+# print(hash((1,2 ,[1,2]))       # unhashable type: 'list',list 为可变的
+
+# 列表推导式  [expr for val in collection if condition]
+strings = ['a', 'as', 'bat', 'car', 'dove', 'python']
+
+# 筛选字符数大于2， 并且转为大写
+arr = [word.upper() for word in strings if len(word)>2]
+print(arr)
+
+# set,dict 推导式: {key-expr: val-expr for val in collection if condition}
+# set
+set1 = { len(word) for word in strings}
+print(set1)
+
+set2 = set( map(len,strings))
+print(set2)
+
+print('*'*100)
+
+loc_mapping = { val:index  for val,index in enumerate(strings)}
+print(loc_mapping)
+
+
+
+
