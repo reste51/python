@@ -71,7 +71,7 @@ print(arr3 + arr_row)
 print('*'*100)
 
 
-# 广播原则： 30：00
+# 广播原则： 30：00_  trailing dimension
 
 
 
