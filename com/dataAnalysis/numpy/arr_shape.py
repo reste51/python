@@ -6,6 +6,11 @@
     Returns an array containing the same data with a new shape.
     reshape的个数需要等于 原有数组元素的个数  3*4=12
 
+    视频: 04-numpy数组 -- 01数组的计算和数组的计算
+
+3. 数组与值/ 数组与数组的计算
+   视频  30:00,  广播原则,  arr1和 arr2的shape, 从后往前 计算, 位置一样则可以计算
+
 
 '''
 import  numpy as np
@@ -64,16 +69,23 @@ arr_row = np.arange(6)
 # print(arr3)
 print(arr3 + arr_row)
 
-# 2.3 列shape的计算    23：25
-
-
-
 print('*'*100)
+
+# 2.3 列shape的计算    23：25
+col_arr = np.arange(4).reshape(4,1) * 10
+
+print(arr3-col_arr)
+
+
 
 
 # 广播原则： 30：00_  trailing dimension
 
+# arr1和 arr2的shape, 从后往前 计算, 位置一样则可以计算
 
+# arr3-col_arr  , arr3 (4,6), col_arr(4,1)  匹配到 shape的4一样,定位到的是以每列中的每个值进行计算.
+
+# arr3 + arr_row , arr_row(6,1)  匹配的shape_1 的6 也可以计算, 每行为单位中  每列的值计算
 
 
 
