@@ -40,6 +40,8 @@ dict2 = [{'name':'力点','age':32},{'name':'力点','age':32,'salary':5000}]
 # df.describe() 最大/小等 的统计值
 
 
-
+# 统计次数最高的前几个名字？
+df = pd.read_csv('./dogNames2.csv')
+print(df)
 
 
