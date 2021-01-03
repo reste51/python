@@ -1,0 +1,45 @@
+"""
+ 二维(行和列), Series容器。
+    默认会指定 行索引(axis=0) 和列索引(axis=1); 从0自增
+
+ Series容器的理解：
+    因为 每次从DF(二维)取值时,  都会是一个  一维数据，无论是从 某行或 某列取值.
+    因此 取值后都会是一个Series 。
+
+
+"""
+# index 代表行，  col 列
+# pd.DataFrame(arr_like,index, columns)
+
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame(np.arange(50,60).reshape(2,5),index=['row1','row2'],columns=list('abcde'))
+print(df)
+
+
+# DF 传入 字典dict数据
+
+# 1.1 key 为[] 时，会产生多行;  {name:['a','b'],'age':[20,12]}
+dict1 = {'name':['李勇','李典','王五'], 'age':[10,20,30]}       # 注: 每个属性的数组长度一致
+# df = pd.DataFrame(dict1)
+# print(df)
+
+# 1.2  每个json 为一行数据;  [{name:1,age:2},{name:1,age:2}]     # 注: 每个json 的属性可以不一致, 均为 每一列
+dict2 = [{'name':'力点','age':32},{'name':'力点','age':32,'salary':5000}]
+# df = pd.DataFrame(dict2)
+# print(df)
+
+
+
+# df.index, df.columns df.values( 对象值, 二维ndarray数组)
+
+# head(num)  tail(num)  与 spark 类似
+
+# df.info()  展示概览
+# df.describe() 最大/小等 的统计值
+
+
+
+
+
