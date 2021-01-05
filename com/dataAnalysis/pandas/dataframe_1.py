@@ -57,10 +57,10 @@ print(ret)
 # sort学习, 按照index 或 某列的值进行排序; ascending=False 指定排序方式
 
 # 产生 2行4列的 df
-# obj = pd.DataFrame(np.arange(8).reshape(2,4), index=['three','one'], columns=list('dabc'))
+obj = pd.DataFrame(np.arange(8).reshape(2,4), index=['three','one'], columns=list('dabc'))
 # 按照索引排序
 # 1.1 行index , one -> three
-# print(obj.sort_index())
+print(obj.sort_index())
 
 # 1.2 列 排序;  a ->b ->c ->d
 # print(obj.sort_index(axis=1))
