@@ -42,3 +42,7 @@ df = pd.read_csv('./dogNames2.csv')
 
 df.dropna(axis=0,how="any")
 
+# 填充数据-- 14:08
+
+
+
