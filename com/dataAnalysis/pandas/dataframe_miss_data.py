@@ -1,6 +1,10 @@
 """
     DF中缺失数据
+        判断：  pd.notna()  与 isna 相反
+        删除： df2.dropna(axis=0,how='all', inplace=False)
+        填充缺省值（一般使用中间值填充） ：df2.fillna(df2.mean())
 
+        注：0是参与中间值的计算，但 Nan不会,计算时直接忽略。
 
     ----
     dropna(axis=0,how="any") --》 参考源码
@@ -30,7 +34,7 @@ import pandas as pd
 # Detect missing values for an array-like object.
 print(pd.isna('Dog'), pd.isna(np.nan))  # False True
 
-array = np.array([[1, np.nan, 3], [4, 5, np.nan],[np.nan,np.nan,np.nan]])
+array = np.array([[1, np.nan, 3], [4, 5, np.nan],[np.nan,np.nan,np.nan],[10,6,7]])
 # print(array.shape)  # (2,3)
 print(pd.isna(array))   # [[False  True False] [False False  True]]
 
@@ -62,8 +66,7 @@ print(df_filledna)
 print('*'*100)
 
 # 指定的列替换, 返回的是 Series
-s = df2['a'].fillna(df2['a'].mean())
-df2['a'] = s
+df2['c'] = df2['c'].fillna(df2['c'].mean())
 print(df2)
 
 # 17:00
