@@ -52,12 +52,18 @@ print(not_row_df,type(not_row_df))
 
 # all 为某行或列全部为NAN才会删除, any 出现一次则会删除
 df_drop_na = df2.dropna(axis=0,how='all', inplace=False)
-# print(df2)
+print(df2)
 
-# 填充数据-- 14:08
+# 填充数据-- 14:08; @返回被替换的df 或 series
+# 全部替换: 将指定的值 替换为原有的Nan;一般会填充某一列的均值
+df_filledna = df2.fillna(df2.mean())
+print(df_filledna)
 
+print('*'*100)
 
+# 指定的列替换, 返回的是 Series
+s = df2['a'].fillna(df2['a'].mean())
+df2['a'] = s
+print(df2)
 
-
-
-
+# 17:00
