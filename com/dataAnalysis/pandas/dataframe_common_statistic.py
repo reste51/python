@@ -15,3 +15,6 @@ print(score_mean)
 director_num = len( set(df['Director'].tolist()))
 print(director_num)
 
+# 09-统计方法和字符串离散化 --》 02padas的常用统计方法 (05:17)
+
+
