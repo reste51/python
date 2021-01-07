@@ -23,26 +23,41 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('./dogNames2.csv')
+# df = pd.read_csv('./dogNames2.csv')
 
 # 是否为NAN
-# pd.isnull(df)
 
-# pd.notnull
+# Detect missing values for an array-like object.
+print(pd.isna('Dog'), pd.isna(np.nan))  # False True
 
+array = np.array([[1, np.nan, 3], [4, 5, np.nan],[np.nan,np.nan,np.nan]])
+# print(array.shape)  # (2,3)
+print(pd.isna(array))   # [[False  True False] [False False  True]]
 
-# 获取不为 null的值
+# pd.notna()  与 isna 相反
 
+print('*'*100)
+
+# 通过Boolean索引获取不为 null的值
 # 满足w列中, 不为null的  行,  返回的是 行
 # df[pd.notnull( df["w"])]
+df2 = pd.DataFrame(array,columns=list('abc'))
+print(df2)
 
+# 筛选 a b 两列均不为空的情况
+not_row_df = df2[ (pd.notna( df2['a'])) &(pd.notna( df2['b'])) ]
+print(not_row_df,type(not_row_df))
 
 # 删除NAN
 
-
-df.dropna(axis=0,how="any")
+# all 为某行或列全部为NAN才会删除, any 出现一次则会删除
+df_drop_na = df2.dropna(axis=0,how='all', inplace=False)
+# print(df2)
 
 # 填充数据-- 14:08
+
+
+
 
 
 

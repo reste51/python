@@ -17,10 +17,17 @@ print(ret_df)
 
 # 多个条件() & () ;   | 或，& 且
 ret_df = df[(df['Count_AnimalName']>800)  & (df['Count_AnimalName']<1000) ]  # 大于800 并且小于 1000
-print(ret_df)
+print(ret_df.size, ret_df)      # size 参考源码
+
 
 # df中字符串的方法,  col.str.split(',').tolist()  /  len() / contains()
 # 会应用到当前 选中列的值
+
+# Row_Labels值的长度大于4   并且 包含 ROCK字符
+# str 为StringMethods
+print( ret_df[ (ret_df['Row_Labels'].str.len()>4) & (ret_df['Row_Labels'].str.contains('ROCK')) ] )
+
+
 
 
 
