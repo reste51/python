@@ -39,18 +39,30 @@ df0=pd.DataFrame(two_arr,columns=unique_val_list)
 # for row in row_list:  # row 为list
 for i in gnere_s.index:
     row_val = row_list[i]
-    print(i,row_val)
+    # print(i,row_val)
     # loc_标签的筛选, 筛选行, 列(为一个列表，多个列的选择)
     df0.loc[i,row_val]=1
 
 print(gnere_s.head(2))
-print(df0)
+# print(df0)
 
-# 3 求和每列的值
-ret = df0.sum(axis=0)
-print(ret)
+# 3 以每行_求和每列的值
+ret_s = df0.sum(axis=0)
+# print(ret_s.shape)  # (20,)
+
+# 4.排序, 升序; 因为是Series 只有一列值,因此可以不指定排序的列
+# 准备x 和y 轴的数据
+ret_s = ret_s.sort_values()
+# print(ret_s)
+x_arr = ret_s.index
+y_arr = ret_s.values
+
+# print(type(x_arr),type(y_arr))
+
+# 5. 绘制bar 图
+plt.figure(figsize=(20,8),dpi=80)
+plt.bar(x_arr,y_arr,width=0.4,color='orange')  # 传入x,y 轴的数组
+# plt.xticks(range(len(x_arr)),x_arr)
+plt.show()
 
 
-# 4. 绘制bar 图
-# plt.xticks()
-# .....
