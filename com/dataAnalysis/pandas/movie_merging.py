@@ -8,6 +8,7 @@
 
     2. 列合并: a.merge(b)
 
+    内连接 inner(值相同)， outer(并集A ∪ B), left(以左侧的值为准,没匹配是Nan), right(以右侧为准)
     :returns joined : DataFrame
 
    15：00
