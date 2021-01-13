@@ -8,7 +8,7 @@
     1. 可遍历: 每个元素为 tuple: (group_col_val, DF(出现该值的记录))
     2. 调用聚合方法count()
 
-
+    MultiIndex的使用, 多列作为索引
 
 """
 import pandas as pd
@@ -51,6 +51,24 @@ grouped = cn_df.groupby(by='State/Province').count()['Brand']  # 以 Brand全值
 grouped = starbucks_df.groupby(by=['Country','State/Province'])[['Brand']].count()
 print(type(grouped),grouped)
 # print(starbucks_df.info())
+
+
+# --------- 索引的方法和属性
+# print(grouped.index) # MultiIndex, 多列作为 索引
+
+# 符复合索引的取值的方式
+# 取索引的label- 需要使用loc
+# print(grouped['CN']['51'])       # 此方法 不知道为啥 会报错
+print(grouped.loc['CN'].loc['51'])  # 取中国 四川省的数据
+print(grouped.loc['CN','53'])
+
+
+# grouped = grouped.swaplevel()
+# print(grouped.index)
+
+
+
+
 
 
 
