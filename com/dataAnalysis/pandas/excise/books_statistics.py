@@ -19,9 +19,8 @@ nonone_label = 'title'
 df = all_df[pd.notna(all_df[year_label])]
 ret_s = df.groupby(by=year_label)[nonone_label].count().sort_values(ascending=False).head(8)
 # print(ret_s, type(ret_s))
-plt.figure(figsize=(20,8),dpi=80)
-print(ret_s.index)
-plt.bar(ret_s.index,ret_s.values,width=0.4,color='orange')
+# plt.figure(figsize=(20,8),dpi=80)
+# plt.bar(ret_s.index,ret_s.values,width=0.4,color='orange')
 # plt.xticks(range(len(ret_s.index)), ret_s.index)
 # plt.show()
 # print(range(len(ret_s.index)), ret_s.index)
@@ -30,9 +29,18 @@ plt.bar(ret_s.index,ret_s.values,width=0.4,color='orange')
 # 2. 不同年份书的平均评分情况
 # 2.1 先去空值的df; 获取 average_rating这一列(Series)
 # 2.2 以年份year分组  (但没数据_需要提供year该列Series的数据, 会以 index 进行关联rating 列值,  --> 平均值
-mean_df =  df['average_rating'].groupby(by=df[year_label]).mean().sort_values(ascending=False)
-print(mean_df, type(mean_df))
+mean_df =  df['average_rating'].groupby(by=df[year_label]).mean()
+x_arr = mean_df.index
+y_arr = mean_df.values
 
+plt.figure(figsize=(20,8),dpi=80)
+plt.plot(range(len(x_arr)),y_arr)
+
+# 设置x 轴坐标,  list 才能做切片,  取step 10( 以年度划分);   倾斜度; 将x轴的float类型转为Int
+plt.xticks(range(len(x_arr))[::10], x_arr[::10].astype(int),rotation=45)
+# plt.xticks(list(range(len(x_arr)))[::10],x_arr[::10].astype(int),rotation=45)
+
+plt.show()
 
 
 
