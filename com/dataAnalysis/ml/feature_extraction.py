@@ -2,6 +2,8 @@
     特征抽取， 将文本转为 数值( 使用字典标识)
 
     类似 YL1(0为未完成， 1已完成), ZJZLDM(证件种类代码_是一个字典)
+
+    02-特征工程和文本特征提取 - 05_字典特征数据抽取  09：17
 """
 
 from sklearn.feature_extraction import DictVectorizer
