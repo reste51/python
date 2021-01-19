@@ -20,7 +20,8 @@
 """
 
 from sklearn.feature_extraction import DictVectorizer
-from  sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 import jieba
 
 def dictvec():
@@ -61,6 +62,18 @@ def cut_word(content):
         ret.append(' '.join(tmp_l)) # 以空格 分割的每个词汇
     return ret
 
+def significance(content):
+    """
+    提取某一文章能代表主题的词语， 分类  - 重要性
+    tf: term frequency 词语频率
+    idf: inverse document frequency 逆向文档频率
+
+    :param content:  一组文章
+    :return:
+    """
+    doc_vec = TfidfVectorizer()
+    data = doc_vec.fit_transform(content)
+    print(data.toarray(), doc_vec.get_feature_names(),sep='\n')
 
 if __name__ == '__main__':
     # 1.first
@@ -80,7 +93,10 @@ if __name__ == '__main__':
     word_arr = cut_word(content)
     # print(word_arr)
     # 注： 单个汉字也无法统计
-    text_vector(word_arr)
+    # text_vector(word_arr)
+
+    # 4.  提取某一文章能代表主题的词语， 分类  - 重要性
+    significance(word_arr)
 
 
 
