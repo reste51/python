@@ -30,11 +30,14 @@ print(df.shape,df.head(2))
 d = {'id':[17,18], 'name':['scala','python'], 'age':[50,22], 'status':[1,0]}
 df_d = pd.DataFrame(data=d)
 # print(df_d.dtypes)
-df_d.to_sql('test1',engine,index=False,if_exists='append')
+# df_d.to_sql('test1',engine,index=False,if_exists='append')
 
 
 # 修改
 # update_data = {'id':8, 'name':'Vue','age':20}
 # update_data.to_sql('test1',engine,index=False,if_exists='replace')
+
+
+
 
 
