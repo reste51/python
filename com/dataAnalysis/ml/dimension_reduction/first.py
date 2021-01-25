@@ -7,7 +7,9 @@
             包名: feature_selection
 
           PCA：principal component analysis 主成分分析( 应用场景少)：
-             包名: decomposition
+             包名: decomposition  ; 特征数量达到 上百个时使用
+              1.2.1 将高维数据  降低低维, 数据不会损失很多。
+              1.2.2 高维数据问题： 特征之间通常是相关的    - 22：31
 
         2. embed： 正则化、决策树
 
