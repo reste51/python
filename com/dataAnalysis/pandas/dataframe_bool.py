@@ -8,7 +8,7 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv('./dogNames2.csv')
+df = pd.read_csv('../data/dogNames2.csv')
 # print(df)
 
 # 单一条件

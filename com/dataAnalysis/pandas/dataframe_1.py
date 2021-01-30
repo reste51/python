@@ -49,7 +49,7 @@ df = pd.DataFrame(dict2)
 # print(df.describe())
 
 # 统计次数最高的前几个名字？
-df = pd.read_csv('./dogNames2.csv')
+df = pd.read_csv('../data/dogNames2.csv')
 ret = df.sort_values(by='Count_AnimalName',ascending=False).head(3)
 print(ret)
 
