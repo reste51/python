@@ -6,7 +6,7 @@
     注： train_test_split的划分数据集时，顺序是无序，乱序的。
 """
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_iris,fetch_20newsgroups
+from sklearn.datasets import load_iris,fetch_20newsgroups,load_boston
 
 # 1.离散_鸢尾花的_获取小规模数据集，数据包含在datasets里
 # 特征为4， 样本数:150;    类别：3，每个类别的目标值为 50个
@@ -27,16 +27,19 @@ from sklearn.datasets import load_iris,fetch_20newsgroups
 # print(f'特征值:{train_features}\n ************ {test_features}')
 # print(f'目标值:{train_target}\n {test_target}')
 
-
-# 2.目标值连续_适合回归算法_ 房价预测;
+#  用于分类的大数据集， 新闻的分类(离散值,显示每篇文章的类型)
 #   注：会从网络下载, 先会从网络下载*.tar.gz->解压 -> 抽取内容到20news-bydate_py3.pkz; 比较智能
 # subset: 'train'或者'test','all'，可选，选择要加载的数据集.
 # datasets.clear_data_home(data_home=None)  清除目录下的数据
+# ds_continually = fetch_20newsgroups(data_home='../data/scikit_learn_data',subset='all')
+# print(f'目标值： {ds_continually.target},  {ds_continually.target.shape}')  # (18846,)
 
-ds_continually = fetch_20newsgroups(data_home='../data/scikit_learn_data',subset='all')
+# 2.目标值连续_适合回归算法_ 房价预测;
+ds_continually  =load_boston()
+print(f'特征值： {ds_continually.data},  {ds_continually.data.shape}')  # (506, 13), 13个特征，506个样本数
+print(f'目标值： {ds_continually.target},  {ds_continually.target.shape}')  # (506,)； 每个样本数->一个目标值
+# The Boston house-price data has been used in many machine learning papers that address regression  problems.
+print(f'描述信息:{ds_continually.DESCR}')
 
-print(f'特征值： {ds_continually.data}')
-print(f'目标值： {ds_continually.target}')
-print(f'描述信息: {ds_continually.DESCR}')
 
 
