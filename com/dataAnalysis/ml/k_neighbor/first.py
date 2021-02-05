@@ -21,7 +21,7 @@ from sklearn.preprocessing import StandardScaler
 
 path = '../data/facebook-v-predicting-check-ins'  # 注： 显示全部列
 pd.set_option('display.max_columns', None)
-
+neighbor_num = 8
 
 def k_neighbors():
     """
@@ -71,7 +71,7 @@ def k_neighbors():
     feature_test = standard.transform(feature_test)
 
     # 7. 算法计算
-    kn = KNeighborsClassifier(n_neighbors=5)
+    kn = KNeighborsClassifier(n_neighbors=neighbor_num)
     # fit predict score
     kn.fit(feature_train, target_train)  # 训练特征,训练目标;  有目标值为监督学习
     # 预测值, 传入测试特征
