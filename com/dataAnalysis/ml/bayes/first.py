@@ -2,7 +2,7 @@
     朴素贝叶斯:  朴素的含义_各个特征(条件)独立的概率
         该算法一般用于文档分类， 不像k近邻直接推导一个类别, 分析每个特征值的概率，取最大概率的类别。
     ---
-    概率基础：
+    概率基础- P probability：
         1.联合概率：包含多个条件，且所有条件同时成立的概率
             P（A,B) ;  A和B事件同时生成的概率
 
@@ -33,7 +33,7 @@ def naive_bayes():
     # 2. 划分训练和测试集
     # 2.1  x_代表特征值，其实就是一篇一篇的文章; y_代表特征值(一个数字， 对应一种类别)
     x_train, x_test, \
-    y_train, y_test = train_test_split(news_ds.data, news_ds.target, test_size=0.25)
+        y_train, y_test = train_test_split(news_ds.data, news_ds.target, test_size=0.25)
 
     # 3.特征处理- 词语重要性分析
     tf = TfidfVectorizer()
