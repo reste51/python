@@ -22,7 +22,9 @@
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
 import jieba
+
 
 def dictvec():
     """
@@ -33,10 +35,12 @@ def dictvec():
     dict = DictVectorizer(sparse=False)
 
     # 特征化, 传入三份 样本
-    data = dict.fit_transform([{'city': '北京','temperature':100},{'city': '上海','temperature':60},{'city': '深圳','temperature':30}])
+    data = dict.fit_transform(
+        [{'city': '北京', 'temperature': 100}, {'city': '上海', 'temperature': 60}, {'city': '深圳', 'temperature': 30}])
     print(data)
     # 输出 特征列表;  ['city=上海', 'city=北京', 'city=深圳', 'temperature']
     print(dict.get_feature_names())
+
 
 def text_vector(content):
     """
@@ -50,6 +54,7 @@ def text_vector(content):
     print(ret.toarray())
     print(text_vec.get_feature_names())  # 特征列表
 
+
 def cut_word(content):
     """
     使用jieba 分词处理
@@ -58,9 +63,10 @@ def cut_word(content):
     """
     ret = []
     for c in content:
-        tmp_l = list(jieba.cut(c)) # 迭代器 -> list
-        ret.append(' '.join(tmp_l)) # 以空格 分割的每个词汇
+        tmp_l = list(jieba.cut(c))  # 迭代器 -> list
+        ret.append(' '.join(tmp_l))  # 以空格 分割的每个词汇
     return ret
+
 
 def significance(content):
     """
@@ -73,7 +79,11 @@ def significance(content):
     """
     doc_vec = TfidfVectorizer()
     data = doc_vec.fit_transform(content)
-    print(data.toarray(), doc_vec.get_feature_names(),sep='\n')
+    arr = data.toarray()
+
+    # print(np.sort(arr), doc_vec.get_feature_names(), sep='\n')
+    print(arr, doc_vec.get_feature_names(), sep='\n')
+
 
 if __name__ == '__main__':
     # 1.first
@@ -87,8 +97,8 @@ if __name__ == '__main__':
 
     # 3.使用jieba 中文分词来特征统计
     content = ["今天很残酷，明天更残酷，后天很美好，但绝对大部分是死在明天晚上，所以每个人不要放弃今天。",
-            "我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。",
-            "如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。"]
+               "我们看到的从很远星系来的光是在几百万年之前发出的，这样当我们看到宇宙时，我们是在看它的过去。",
+               "如果只用一种方式了解某样事物，你就不会真正了解它。了解事物真正含义的秘密取决于如何将其与我们所了解的事物相联系。"]
 
     word_arr = cut_word(content)
     # print(word_arr)
@@ -97,8 +107,3 @@ if __name__ == '__main__':
 
     # 4.  提取某一文章能代表主题的词语， 分类  - 重要性
     significance(word_arr)
-
-
-
-
-

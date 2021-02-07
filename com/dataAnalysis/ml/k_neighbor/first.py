@@ -23,6 +23,7 @@ path = '../data/facebook-v-predicting-check-ins'  # 注： 显示全部列
 pd.set_option('display.max_columns', None)
 neighbor_num = 8
 
+
 def k_neighbors():
     """
     k 近邻算法
@@ -61,13 +62,12 @@ def k_neighbors():
     feature_all = df.drop('place_id', axis=1)
     # print(target_all.shape, feature_all.shape)
     feature_train, feature_test, \
-        target_train, target_test = train_test_split(feature_all, target_all, test_size=0.25)
+    target_train, target_test = train_test_split(feature_all, target_all, test_size=0.25)
 
     # 6. 标准化，注： 只处理特征值(test/train), 不处理目标值
+    #  以train 作为处理标准 转换 test 数据集
     standard = StandardScaler()
     feature_train = standard.fit_transform(feature_train)
-    # feature_test = standard.fit_transform(feature_test)
-    # standard.fit(feature_test)
     feature_test = standard.transform(feature_test)
 
     # 7. 算法计算
