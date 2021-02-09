@@ -10,6 +10,11 @@
             P(A |B);  在B事件发生后，A的概率
             特性：P(A1,A2|B) = P(A1|B)P(A2|B)； 注意：此条件概率的成立，是由于A1,A2相互独立的结果
 
+    评估报告：
+        1.精确率
+        2.精准率 - 查得准( 占不考虑)
+        3.召回率 - 查找的范围(查的全，对正样本的区分能力)
+
     ----
     通过 分析每篇文档的词汇， 获取重要性的词汇(需使用训练集的分析)， 再来计算每个词在该类别下出现的次数及 出现的总数。
     总结：
@@ -20,7 +25,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-
+from sklearn.metrics import classification_report
 
 def naive_bayes():
     """
@@ -53,6 +58,13 @@ def naive_bayes():
     # 4.3 准确度,传入测试集的 特征和目标值来判断评分， 与相反;
     score = bayes.score(x_test, y_test)
     print(f'准确率为{score}')  # 85%
+
+    # 5. 评估报告, 获取精准率和召回率
+    # 参数传入： 真实的测试目标值, 预测的目标值;  类别的名称
+    # precision    recall  f1-score   support(涉及的样本数)
+    # 例子： recall：0.66 是66%的比较查找正确，剩余44%的类别错误。
+    report_str = classification_report(y_test,predict_test,target_names=news_ds.target_names)
+    print(report_str)
 
 
 if __name__ == '__main__':
