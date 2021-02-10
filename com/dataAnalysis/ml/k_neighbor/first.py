@@ -11,17 +11,22 @@
    2. 优点： 算法简单，无需迭代训练优化，没有估计参数( 调用方法传递的参数)
         注：n_neighbors为超参数—> KNeighborsClassifier(n_neighbors=5);  创建类实例时，传递的参数。
 
+---------
+    评估报告：
+        1.交叉验证 - 模型更加准确和可信
+        2.网格搜索 - 调使用参数组合的交叉验证方式来达到 获取最优参数
+
+
 """
 
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 import pandas as pd
 from numpy.random import randn
 from sklearn.preprocessing import StandardScaler
 
 path = '../data/facebook-v-predicting-check-ins'  # 注： 显示全部列
 pd.set_option('display.max_columns', None)
-neighbor_num = 8
 
 
 def k_neighbors():
@@ -71,20 +76,35 @@ def k_neighbors():
     feature_test = standard.transform(feature_test)
 
     # 7. 算法计算
-    kn = KNeighborsClassifier(n_neighbors=neighbor_num)
+    # kn = KNeighborsClassifier(n_neighbors=8)
     # fit predict score
-    kn.fit(feature_train, target_train)  # 训练特征,训练目标;  有目标值为监督学习
+    # kn.fit(feature_train, target_train)  # 训练特征,训练目标;  有目标值为监督学习
     # 预测值, 传入测试特征
-    target_predict = kn.predict(feature_test)
-    print(f'预测的目标值位置为：{target_predict}')
+    # target_predict = kn.predict(feature_test)
+    # print(f'预测的目标值位置为：{target_predict}')
 
     # 准确率_ 传入 测试特征，测试目标  与 训练后的值比较
     # 标准化前 3%, 标准化后38%;
     # 改进-> 删除row_id的特征后：43.3%
     # 改进2-> 日期特征只保留 day,hour 能达到 50%
-    score = kn.score(feature_test, target_test)
-    print(f'准确率为{score}')
-    print(f'特征值的数量为{feature_all.shape[1]}, sample数量为: {feature_all.shape[0]}')
+    # score = kn.score(feature_test, target_test)
+    # print(f'准确率为{score}')
+    # print(f'特征值的数量为{feature_all.shape[1]}, sample数量为: {feature_all.shape[0]}')
+
+    # 8.网格搜索- 查找最优的K值, 注: k的超参数暂时不传递，网格搜索param_grid 传递
+    knn = KNeighborsClassifier()
+    # estimator(算法实例), param_grid为dict结构,传递可能参数列表， cv为几折 交叉运算
+    param_grid = {'n_neighbors': [1,2,3,5, 8, 10, 4]}
+    gs = GridSearchCV(knn, param_grid=param_grid, cv=2)  # 注：该实例也是一个estimator实例(有fit, score, predict)
+    gs.fit(feature_train, target_train)
+
+    # 8.1 输出结果
+    score = gs.score(feature_test, target_test)
+    print(f'在测试集的准确率为： {score}')  # 49.1%
+    print(f'在训练集中交叉验证最好的结果： {gs.best_score_}')   # 47.7%
+    print(f'在训练集中交叉验证最好的参数模型： {gs.best_estimator_}')  # n_neighbors=8
+    # split0_test_score：第一次交叉验证的结果，  mean_test_score： 2次交叉结果的平均值结果
+    print(f'每次交叉验证后的测试集准确率结果和训练集准确率结果： {gs.cv_results_}')
 
 
 def df_query_test():
