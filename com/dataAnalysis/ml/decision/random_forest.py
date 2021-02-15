@@ -10,6 +10,13 @@
 		5.为什么随机抽样？保证每个树的样本及特征不一样。
 		6.为什么有放回的抽样？ 保证数据有交集，导致后续无法投票进行决策。
 
+    优点：
+	1. 经常使用，在所有算法中，具有极好的准确率， 经常使用。
+	2. 能够在大数据集中运行（大量的samples 和 大量的feature中）
+	3. 能够处理高维特征的输入样本，不需要降维处理。
+
+
+
 """
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
