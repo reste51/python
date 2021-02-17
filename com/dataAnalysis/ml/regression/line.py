@@ -2,9 +2,20 @@
     回归：连续目标值，可划分， 如：预测房价，销售业绩，贷款额度
     线性回归： y = k *x +b
 
-"""
+    矩阵乘法： (m行 * l列) * (l行, n列 ) = （m行 * n列）
 
+"""
+import numpy as np
 import matplotlib.pyplot as plt
+
+
+def matrix():
+    """
+    矩阵的乘法
+    :return:
+    """
+    np.array()
+    pass
 
 
 def draw_point():
@@ -24,4 +35,7 @@ def draw_point():
 
 
 if __name__ == '__main__':
-    draw_point()
+    # draw_point()
+    matrix()
+
+
