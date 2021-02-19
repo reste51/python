@@ -2,6 +2,7 @@ from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, SGDRegressor
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error
 
 """
     使用线性回归的方式来波士顿房价预测：
@@ -46,6 +47,11 @@ def boston():
     predict_y = sgd.predict(x_test)
     # 4.3 需要将标准化后的值还原为 之前的值格式; 看了下 误差值为3左右
     print(f'预测的房价值为： {y_std.inverse_transform(predict_y)}， 真实值为:{y_std.inverse_transform(y_test)}')
+
+    # 5. 回归的评估_ 使用均方差的方式
+
+
+
 
     return None
 
