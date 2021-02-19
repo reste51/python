@@ -9,7 +9,7 @@ from sklearn.metrics import mean_squared_error
     1. 获取数据集
     2. 分割数据集
     3. 数据标准化 - 分别实例化两个feature 和target的 scalar对象
-    4. estimator
+    4. estimator - 正规方程(样本数小于100k)和 梯度下降(大于100k)
 
 """
 
@@ -39,14 +39,15 @@ def boston():
     y_train = y_std.fit_transform(y_train)
     y_test = y_std.transform(y_test)
 
-    # 4. estimator 估计器处理
+    # 4. estimator 估计器处理. 梯度下降
     sgd = SGDRegressor()
     sgd.fit(x_train, y_train)  # 4.1 传入 train
 
     # 4.2, 传入test的特征值;  注： 回归算法没有score精准率， 只有误差值
     predict_y = sgd.predict(x_test)
-    # 4.3 需要将标准化后的值还原为 之前的值格式; 看了下 误差值为3左右
-    print(f'预测的房价值为： {y_std.inverse_transform(predict_y)}， 真实值为:{y_std.inverse_transform(y_test)}')
+    # 4.3 需要将标准化后的值还原为 之前的值格式; 看了下 误差值为3左右;  权重值与特征数一样
+    print(f'预测的房价值为： {y_std.inverse_transform(predict_y)}，'
+          f' 真实值为:{y_std.inverse_transform(y_test)}, 权重值: {sgd.coef_}')
 
     # 5. 回归的评估_ 使用均方差的方式
 
