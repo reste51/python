@@ -44,15 +44,14 @@ def boston():
     sgd.fit(x_train, y_train)  # 4.1 传入 train
 
     # 4.2, 传入test的特征值;  注： 回归算法没有score精准率， 只有误差值
-    predict_y = sgd.predict(x_test)
-    # 4.3 需要将标准化后的值还原为 之前的值格式; 看了下 误差值为3左右;  权重值与特征数一样
-    print(f'预测的房价值为： {y_std.inverse_transform(predict_y)}，'
-          f' 真实值为:{y_std.inverse_transform(y_test)}, 权重值: {sgd.coef_}')
+    y_predict = sgd.predict(x_test)
 
     # 5. 回归的评估_ 使用均方差的方式
+    lost_value = mean_squared_error(y_test, y_predict)
 
-
-
+    # 6 需要将标准化后的值还原为 之前的值格式; 看了下 误差值为3左右;  权重值与特征数一样
+    print(f'预测的房价值为： {y_std.inverse_transform(y_predict)}，'
+          f' 真实值为:{y_std.inverse_transform(y_test)}, 权重值: {sgd.coef_}，均方差值为：{lost_value}')
 
     return None
 
