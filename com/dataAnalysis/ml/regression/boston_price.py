@@ -22,10 +22,9 @@ def boston():
     # 1.获取数据集  (506, 13)
     lb = load_boston()
 
-
     # 2. 分割数据集
     x_train, x_test, \
-     y_train, y_test = train_test_split(lb.data, lb.target, test_size=0.25)
+    y_train, y_test = train_test_split(lb.data, lb.target, test_size=0.25)
 
     # 3. 标准化处理 - 分别实例化两个feature 和target(他们shape不同) scalar对象
     # 注; Expected 2D array, got 1D array instead:， 目标值需要1维 转为 2维处理; array.reshape(-1, 1) if your data has a single feature or array.reshape(1, -1) if it contains a single sample
