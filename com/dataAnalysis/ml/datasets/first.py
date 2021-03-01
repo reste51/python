@@ -6,7 +6,7 @@
     注： train_test_split的划分数据集时，顺序是无序，乱序的。
 """
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_iris,fetch_20newsgroups,load_boston
+from sklearn.datasets import load_iris, fetch_20newsgroups, load_boston
 
 # 1.离散_鸢尾花的_获取小规模数据集，数据包含在datasets里
 # 特征为4， 样本数:150;    类别：3，每个类别的目标值为 50个
@@ -35,11 +35,10 @@ from sklearn.datasets import load_iris,fetch_20newsgroups,load_boston
 # print(f'目标值： {ds_continually.target},  {ds_continually.target.shape}')  # (18846,)
 
 # 2.目标值连续_适合回归算法_ 房价预测;
-ds_continually  =load_boston()
+ds_continually = load_boston()
 print(f'特征值： {ds_continually.data},  {ds_continually.data.shape}')  # (506, 13), 13个特征，506个样本数
 print(f'目标值： {ds_continually.target},  {ds_continually.target.shape}')  # (506,)； 每个样本数->一个目标值
 # The Boston house-price data has been used in many machine learning papers that address regression  problems.
-print(f'描述信息:{ds_continually.DESCR}')
-
-
+# 注：target_names 在连续目标值中没有该属性
+print(f'描述信息:{ds_continually.DESCR}', ds_continually.feature_names, sep='\n')
 

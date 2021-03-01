@@ -11,7 +11,7 @@ from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
 def test():
     # 1. 读取数据
-    df = pd.read_csv('../data/titanic/titanic.csv')
+    df = pd.read_csv('../../data/titanic/titanic.csv')
 
     # 2. 获取 特征值和目标值
     feature_df = df[['Age', 'Pclass', 'Sex']]
@@ -29,7 +29,7 @@ def test():
     dv = DictVectorizer(sparse=False)  # 设置 ndarray数值矩阵类型， sparse 打印是一个 tuple
     feature_train = dv.fit_transform(feature_train.to_dict(orient='records'))
     feature_test = dv.transform(feature_test.to_dict(orient='records'))
-    print(dv.get_feature_names(), feature_train, sep='\n')
+    print(dv.get_feature_names(), type(feature_train), sep='\n')
 
     # 6. 定位决策树
     dtc = DecisionTreeClassifier(criterion='gini')
