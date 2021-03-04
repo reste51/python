@@ -34,11 +34,11 @@ sum2 = b + aa
 new_g = tf.Graph()
 with new_g.as_default():  # 切换上下文，使用新建的图
     # 占位符 与 feed_dict 实时训练搭配使用. None代表不确定数量(样本数不确定)
-    plt = tf.placeholder(tf.float32, shape=(None, 2))
+    plt = tf.placeholder(tf.float32, shape=(None, 2))  # 定义图结构的一部分
     # c = tf.constant(11.0)
     # print(c.graph)
     with tf.Session() as s2:
-        # 运行一个占位符，训练过程中才知道实际的数据
+        # 运行一个占位符，训练过程中才知道实际的数据（读取文件）
         ret = s2.run(plt, feed_dict={plt: [[1, 2], [3, 4], [5, 6], [5, 6]]})
         print(ret,plt)
 
