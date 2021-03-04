@@ -168,6 +168,7 @@ def plt_linear():
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+    # TODO 目标值 y 也需要标准化处理
 
     # lr = LinearRegression()
     lr = LassoCV(cv=tscv)
