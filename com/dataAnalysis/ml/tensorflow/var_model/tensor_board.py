@@ -25,5 +25,5 @@ with tf.Session() as sess:
 
     # print(sess.run(var_b))
     # 写入事件， 需要指定 写入图对象
-    fw = tf.summary.FileWriter(logdir='../logdir/tmp1', graph=sess.graph)
+    fw = tf.summary.FileWriter(logdir='../events/tmp2/', graph=sess.graph)
     fw.close()
