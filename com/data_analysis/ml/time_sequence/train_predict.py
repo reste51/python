@@ -24,7 +24,7 @@ def dataset():
     test = df[10392:]  # 占比 12.3%
 
     # aggregating the dataset at daily level; 4位年用Y，2位年用y
-    df['Timestamp'] = pd.to_datetime(df['Datetime'],format='%d-%m-%Y %H:%M')
+    df['Timestamp'] = pd.to_datetime(df['Datetime'], format='%d-%m-%Y %H:%M')
     df.index = df['Timestamp']  # 以时间戳作为索引
     print(df.shape, df.info(), df.head(), sep='\n')
 
@@ -44,6 +44,7 @@ def dataset():
 
     return train, test
 
+
 def naive():
     """
     朴素法： 第一个预测点和上一个观察点相等的预测方法就叫朴素法。即 yt+1^=yt
@@ -51,7 +52,7 @@ def naive():
         可以取前面一天的价格，预测第二天的值。这种假设第一个预测点和上一个观察点相等的预测方法就叫朴素法。即 yt+1^=yt
     :return:
     """
-    train,test = dataset()
+    train, test = dataset()
     dd = np.asarray(train['Count'])
     y_hat = test.copy()
     y_hat['naive'] = dd[len(dd) - 1]
@@ -67,6 +68,7 @@ def naive():
     cost = mean_squared_error(test['Count'], y_hat['naive'])
     print(f'均方误差值为： {cost}')
 
+
 def simple_average():
     """
     简单平均法：
@@ -74,17 +76,16 @@ def simple_average():
         这种将预期值等同于之前所有观测点的平均值的预测方法就叫简单平均法。即y^x+1=1x∑i=1xyi
     :return:
     """
-    train,test = dataset()
+    train, test = dataset()
     y_hat_avg = test.copy()
     y_hat_avg['avg_forecast'] = train['Count'].mean()
-    plt.figure(figsize=(12,8))
+    plt.figure(figsize=(12, 8))
     plt.plot(train['Count'], label='Train')
     plt.plot(test['Count'], label='Test')
     plt.plot(y_hat_avg['avg_forecast'], label='Average Forecast')
     plt.legend(loc='best')
     plt.show()
 
+
 if __name__ == '__main__':
     simple_average()
-
-
