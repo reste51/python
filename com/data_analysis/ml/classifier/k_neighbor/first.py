@@ -25,7 +25,7 @@ import pandas as pd
 from numpy.random import randn
 from sklearn.preprocessing import StandardScaler
 
-path = '../data/facebook-v-predicting-check-ins'  # 注： 显示全部列
+path = '../../data/facebook-v-predicting-check-ins'  # 注： 显示全部列
 pd.set_option('display.max_columns', None)
 
 
