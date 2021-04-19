@@ -23,7 +23,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
-
+from sklearn.model_selection import KFold,cross_val_score
+from sklearn.metrics import confusion_matrix,classification_report, recall_score
 
 def forest():
     # 1. 读取数据
@@ -60,4 +61,11 @@ def forest():
 
 
 if __name__ == "__main__":
-    forest()
+    # forest()
+    # 召回率的普通运算, 注: 此处获取的数据集应该是全部的Positive(需要预警人员的数据集)
+    y_true = [0, 1, 2, 0, 1, 2]
+    y_pred = [0, 2, 1, 0, 0, 1]
+
+    score = recall_score(y_true, y_pred, average='macro')
+    print(score)
+
