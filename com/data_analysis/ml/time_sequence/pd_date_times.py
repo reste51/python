@@ -39,6 +39,7 @@ pd.Timestamp('2016-07-10 10:15')
 
 import re
 
+
 def get_language(page):
     """
     返回 国家2位代码
@@ -50,8 +51,59 @@ def get_language(page):
         return res.group()[0:2]  # 'zh.wikipedia.org' -> 截取 前2位
     return 'na'
 
-from collections import  Counter
+
+from collections import Counter
+
+
+def exp_example():
+    """
+    Plot the magnitude and phase of ``exp(x)`` in the complex plane:
+    :return:
+    """
+    x = np.linspace(-2 * np.pi, 2 * np.pi, 100)
+    xx = x + 1j * x[:, np.newaxis]  # a + ib over complex plane
+    out = np.exp(xx)
+
+    plt.subplot(121)
+    plt.imshow(np.abs(out), extent=[-2 * np.pi, 2 * np.pi, -2 * np.pi, 2 * np.pi], cmap='gray')
+    plt.title('Magnitude of exp(x)')
+
+    plt.subplot(122)
+    plt.imshow(np.angle(out), extent=[-2 * np.pi, 2 * np.pi, -2 * np.pi, 2 * np.pi], cmap='hsv')
+    plt.title('Phase (angle) of exp(x)')
+    plt.show()
+
 
 if __name__ == '__main__':
-    code = get_language('4minute_zh.wikipedia.org_all-access_spider')
-    print(Counter(code))
+    # code = get_language('4minute_zh.wikipedia.org_all-access_spider')
+    # print(Counter(code))
+    # a = np.exp(2)
+    # b = 2.71 * 2.71
+    # print(np.mean(a ==b))
+
+    exp_example()
+
+
+    # pdData.insert(0, 'Ones', 1)
+    # pd.DataFrame().insert()
+    # pd.DataFrame().iloc()
+    # np.linspace()
+    # pd.Series().diff()
+    pd.Series().interpolate()
+    # np.fromfunction()
+    #
+    # fig = plt.figure()
+    # fig.add_subplot()
+    pd.DataFrame().resample().asfreq()
+
+    import statsmodels.tsa.arima_model  as arima
+    arima._predict
+    from statsmodels.tsa.stattools import adfuller
+
+    import os
+    os.listdir()
+    os.mkdir()
+
+
+
+
