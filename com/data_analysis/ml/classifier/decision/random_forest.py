@@ -40,7 +40,7 @@ def forest():
 
     # 4. 分割数据集
     feature_train, feature_test, \
-    target_train, target_test = train_test_split(feature_df, target_series, test_size=0.25)
+        target_train, target_test = train_test_split(feature_df, target_series, test_size=0.25)
 
     # 5.特征工程， 将 sex字符串的类别转为one-hot编码: sex=male,sex=female ; 1为是， 0为否
     dv = DictVectorizer(sparse=False)  # 设置 ndarray数值矩阵类型， sparse 打印是一个 tuple
@@ -68,4 +68,5 @@ if __name__ == "__main__":
 
     score = recall_score(y_true, y_pred, average='macro')
     print(score)
-
+    import numpy as np
+    np.any()
