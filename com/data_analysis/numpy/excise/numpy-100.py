@@ -22,6 +22,33 @@ np.info(np.add)
 Z[4] = 1
 print(Z)
 
-#
+# 创建一个 值域范围: 10-49的向量
+Z = np.arange(10,50)
+print(Z)
 
+# 反转向量
+Z = Z[::-1]
+print(Z)
 
+print('*'*100)
+
+Z = np.random.randn(3,3,3)
+print(Z)
+
+# 10*10的随机数组，并找到对应的 最大和最小值
+Z = np.random.randn(10,10)
+Z_min, Z_max = Z.min(), Z.max()
+print('Z_min %.2f, Z_max: %.5f' % (Z_min, Z_max))
+
+# 对于 一个存在的数组，添加一个用0填充的边界
+Z = np.zeros((5,5))
+Z = np.pad(Z,pad_width=1, mode='constant', constant_values=1)
+print(Z)
+
+print(0.3 == 3*0.1, np.nan - np.nan, np.inf > np.nan, np.nan == np.nan)
+
+#  创建一个 5x5的矩阵，并设置值1,2,3,4落在其对角线下方位置
+val = 1 + np.arange(4)
+print(val)
+Z = np.diag(val, k=1)
+print(Z)
