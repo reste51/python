@@ -52,3 +52,43 @@ val = 1 + np.arange(4)
 print(val)
 Z = np.diag(val, k=1)
 print(Z)
+
+print('*'*100)
+
+# 19. 创建一个8x8 的矩阵，并且设置成棋盘样式 (★☆☆)
+Z = np.zeros((8,8))
+Z[1::2, ::2] = 1
+Z[::2,1::2] =1
+
+print(Z)
+
+z_index = np.unravel_index(100, (6,7,8))
+print(z_index)
+
+# 用tile函数去创建一个 8x8的棋盘样式矩阵(★☆☆)
+Z = np.tile(np.array([[0,1], [1,0]]), (4,4))
+print(Z)
+
+# 对一个 5x5 的随机矩阵做归一化
+Z = np.random.random((5,5))
+Z_max, Z_min = Z.max, Z.min
+
+# print((Z - Z_min) / (Z_max - Z_min))
+
+# color = np.dtype([('r',np.nbytes,1),('g',np.nbytes,1),('b',np.nbytes,1),('a',np.nbytes,1)])
+# print(type(color))
+
+# 5x3 与一个 3x2的矩阵 乘积是：
+a = np.ones((5,3))
+b = np.ones((3,2))
+# print(a,b, sep='\n')
+ret = np.dot(a,b)
+print(ret, ret.shape )
+
+# 给定一个一维数组，对齐在 3 - 8之间的所有元素取反
+Z = np.arange(11)
+Z[ (3<Z) & (Z<=8) ] *= -1
+print(Z)
+
+
+
