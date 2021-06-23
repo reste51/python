@@ -52,3 +52,7 @@ val = 1 + np.arange(4)
 print(val)
 Z = np.diag(val, k=1)
 print(Z)
+
+
+
+
