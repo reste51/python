@@ -29,5 +29,11 @@ print(p_ret)
 p_ret = pd.pivot_table(df, index=['Manager','Rep'])
 print(p_ret)
 
+# using values ,it can automatically averages the data,
+# averages the data but we can do a count or a sum. Adding them is simple using aggfunc and np.sum .
+p_ret = pd.pivot_table(df,index=['Manager','Rep'],values='Price')
+print(p_ret)
+
+
 
 
