@@ -84,23 +84,27 @@ def get_right_child(tree):
 if __name__ == '__main__':
     tree = Binary_Tree(3)
     tree = insert_left(tree, 4)
-    print(tree)
+    # print(tree)
 
     insert_right(tree,6)
-    print(tree)
+    # print(tree)
 
     insert_right(tree,7)
-    print(tree)
+    # print(tree)
 
     l = get_left_child(tree)
     print(l)
 
     r = get_right_child(tree)
-    print(r)
+    # print(r)
 
     # 设置左子树的根节点值
     set_root_val(l, 10)
     print(tree)
+
+
+    print(insert_left(l,11))
+
 
 
 
