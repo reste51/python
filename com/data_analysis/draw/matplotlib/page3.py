@@ -5,7 +5,7 @@
 '''
 
 from matplotlib import pyplot as plt
-from matplotlib import  font_manager
+from matplotlib import font_manager
 
 my_font = font_manager.FontProperties(fname="/System/Library/Fonts/Hiragino Sans GB.ttc")
 

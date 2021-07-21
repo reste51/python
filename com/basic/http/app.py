@@ -1,7 +1,9 @@
 import time
 import redis
 from flask import Flask
-
+import setuptools
+from distutils.core import setup
+import  foo
 
 app = Flask(__name__)
 cache = redis.Redis(host='192.168.136.131', port=6379)
