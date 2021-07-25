@@ -9,6 +9,7 @@
 """
 
 from com.other_excise.huey_1.example.config import huey
+from huey import crontab
 
 
 @huey.task()
@@ -19,12 +20,28 @@ def add(a, b):
 @huey.task()
 def count_beans(num):
     print('-- counted %s beans --' % num)
+    return 'Counted %s beans' % num
 
 
 @huey.task()
 def hello():
     return ' hello huey'
 
+
+@huey.task(retries=2, retry_delay=60)
+def flaky_task(url):
+    # 此任务执行将会失败, 每隔60s 重试两次的操作
+    return TabError(url)
+
+
+@huey.periodic_task(crontab(minute='1'))
+def nightly_backup():
+    print('sync all data .....')
+
+
+@huey.periodic_task(crontab(minute='*/1'))
+def every_three_minutes():
+    print('This task runs every three minutes;  ')
 
 
 

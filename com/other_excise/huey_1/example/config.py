@@ -6,5 +6,5 @@
 
 from huey import RedisHuey
 
-huey = RedisHuey()
+huey = RedisHuey(host='localhost',db=15)
 
