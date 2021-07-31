@@ -55,3 +55,37 @@ print(X, Y.T, sep='\n')
 
 print(nd.dot(X,Y.T))
 
+# concatenate ，指定维度的连接
+print(nd.concatenate([X,Y],axis=0))  # 以行的维度连接   6x4
+print(nd.concatenate([X,Y], axis=1)) # 列的连接         3x8
+
+# 条件判断 , 1true, 0 反
+print(X == Y)
+
+# 所有元素的求和， 只获取一个元素
+print(X.sum())
+
+# 矩阵 转换成 一个标量
+print(X.norm().asscalar())
+
+# 广播机制， 对于两个形状不同的NDArray, 触发 广播 broadcasting
+# 先适当复制元素使这两个NDArray形状相同后再按元素运算。
+# 其实就是 拟合成形状相同的矩阵再做运算, 产生的结果就是  3x2列， 对自身数据进行复制
+A = nd.arange(3).reshape((3,1))  # 3 x 1
+B = nd.arange(3).reshape((1,2))  # 1 x 2
+print(A, B)
+print('index' * 10)
+
+# 索引  切片
+print(X)
+# 行的索引截取
+print(X[1:3])
+
+# 访问 单个元素的位置， 并赋值
+X[1,2] = 999
+print(X)
+
+# 赋值 一部分值
+
+
+
