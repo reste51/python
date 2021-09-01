@@ -1,3 +1,4 @@
+elasticsearch6
 lxml
 matplotlib>3
 numpy
