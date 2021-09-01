@@ -104,7 +104,7 @@ def delete_by_id(_id='222'):
     ret = client.delete(index='bank',doc_type='account',id=_id)
     print(ret)
 
-query_by_range()
+# query_by_range()
 # query_all_docs()
 # delete_by_id()
 # get_doc_id('bank',id='222')
