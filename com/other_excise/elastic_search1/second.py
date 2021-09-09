@@ -21,22 +21,11 @@ curl -X PUT "nodeM:9200/my_index2?pretty" -H 'Content-Type: application/json' -d
 '
 
 """
-from com.other_excise.elastic_search1.first import handle_resp
+from com.other_excise.elastic_search1.first import handle_resp, cat_summary
 from elasticsearch6 import Elasticsearch
+import numpy as np
 
 client = Elasticsearch(hosts=['192.168.3.129'])
-
-
-def cat_summary():
-    """
-    查询 基本信息及 健康状况 和 索引的全部信息
-    :return:
-    """
-    print(client.info())
-    # get all indies info;  _cat/indices?v
-    print(client.cat.indices())
-    # health info;  /_cat/health?v
-    print(client.cat.health())
 
 
 def create_index():

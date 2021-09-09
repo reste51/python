@@ -6,6 +6,10 @@ from elasticsearch6 import Elasticsearch
 client = Elasticsearch(hosts=['192.168.3.129'])
 
 
+def get_client():
+    return client
+
+
 def cat_summary():
     """
     查询 基本信息及 健康状况 和 索引的全部信息
@@ -13,9 +17,9 @@ def cat_summary():
     """
     print(client.info())
     # get all indies info;  _cat/indices?v
-    print(client.cat.indices())
+    print(client.cat.indices(v=True))
     # health info;  /_cat/health?v
-    print(client.cat.health())
+    print(client.cat.health(v=True))
 
 
 def get_doc_id(index='twitter', doc_type='_all', id=2):
@@ -78,7 +82,7 @@ def query_by_range():
     范围的查询 -  分页的查询 通过 params的 size 和from进行操作
     :return:
     """
-    ret = client.search('bank', doc_type=None,params={'size':40, 'from':200}, body={
+    ret = client.search('bank', doc_type=None, params={'size': 40, 'from': 200}, body={
         'query': {
             'bool': {
                 'filter': {
@@ -101,8 +105,9 @@ def delete_by_id(_id='222'):
     :param _id:
     :return:
     """
-    ret = client.delete(index='bank',doc_type='account',id=_id)
+    ret = client.delete(index='bank', doc_type='account', id=_id)
     print(ret)
+
 
 # query_by_range()
 # query_all_docs()
