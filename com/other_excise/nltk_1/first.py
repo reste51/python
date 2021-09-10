@@ -17,6 +17,14 @@ tagged = nltk.pos_tag(tokens)
 print(tagged[0:6])
 
 
-from nltk.corpus import treebank
-t = treebank.parsed_sents('wsj_0001.mrg')[0]
-t.draw()
+# from nltk.corpus import treebank
+# t = treebank.parsed_sents('wsj_0001.mrg')[0]
+# t.draw()
+
+from nltk.book import *
+text1.generate()
+print('*'*100)
+text1.generate()
+
+
+
