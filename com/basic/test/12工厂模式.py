@@ -14,53 +14,53 @@ class Axe(object):
         print('斧头开始砍树了')
         # print('%s开始砍树了。。。。'%self.name)
 
+
 class StoneAxe(Axe):
     def cur_tree(self):
         print('石斧砍树了。。。。')
+
 
 class SteelAxe(Axe):
     def cur_tree(self):
         print('钢斧砍树了。。。。')
 
+
 class CopperAxe(Axe):
     def cur_tree(self):
         print('铜质砍树了。。。。')
 
+
 class Person(object):
-    def __init__(self,name):
+    def __init__(self, name):
         self.name = name
 
-    def work(self,axeType):
-        print('%s_开始工作了...'%self.name)
+    def work(self, axeType):
+        print('%s_开始工作了...' % self.name)
         # 使用特定斧头 砍树
         # axe = StoneAxe()
         # axe = SteelAxe()
 
         # 调用 工厂方法根据 axeType返回不同的实例
         axe = AxeFactory.createAxe(axeType)
-        if(axe):
+        if axe:
             axe.cur_tree()
+
 
 class AxeFactory(object):
     # 根据axeType类型创建 不同的斧头实例并返回
     @staticmethod
     def createAxe(axeType):
-        if(axeType=='stone'):
+        if axeType == 'stone':
             return StoneAxe()
-        elif(axeType=='steel'):
+        elif axeType == 'steel':
             return SteelAxe()
-        elif(axeType=='copper'):
+        elif axeType == 'copper':
             return CopperAxe()
         else:
             print('传入参数出错！')
+
 
 p = Person('原始人')
 # p.work('stone')
 # p.work('steel')
 p.work('copper1')
-
-
-
-
-
-
