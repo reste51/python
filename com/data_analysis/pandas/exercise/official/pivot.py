@@ -90,6 +90,8 @@ def multi_levels():
     unstacked = stacked.unstack(level=[1,2])
     print(unstacked)
 
+
+
 # stack_unstack()
 multi_levels()
 
