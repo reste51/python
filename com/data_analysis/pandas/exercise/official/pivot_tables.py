@@ -27,9 +27,19 @@ def test():
     p_df = pd.pivot_table(df, values='D',index=['A','B'],columns='C')
     print(p_df)
 
+def test_2():
+    counts = pd.Series()
+    df = get_df()
+    print(df['C'].value_counts())
+    counts = counts.add(df['C'].value_counts(), fill_value=0)
+    print(counts.memory_usage())
+    counts = pd.to_numeric(counts, downcast='unsigned')
+    print(counts.memory_usage())
+
 
 if __name__ == '__main__':
-    test()
+    # test()
+    test_2()
     # print(get_df())
 
 

@@ -3,6 +3,8 @@
 
     the module just contain the lexing rules
 """
+import ply.lex as lex
+
 # List of token names( tuple ), this is always required
 tokens = (
     'NUMBER',
@@ -27,7 +29,7 @@ t_RPAREN = r'\)'
 # 该函数用于修改已生成的LexToken(value,type, lineno, linepos)
 def t_NUMBER(t):
     r'\d+'
-    t.value = int(t.value)  # 将字符串的数值转为 int
+    t.value = int(t.value) + 20  # 将字符串的数值转为 int
     return t
 
 
@@ -46,3 +48,7 @@ t_ignore = ' \t'
 def t_error(t):
     print(f'Illegal character is {t.value[0]}')
     t.lexer.skip(1)
+
+
+# build the lexer
+lexer = lex.lex(debug=True)
