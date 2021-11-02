@@ -79,7 +79,7 @@ def get_random_headers():
                'if-none-match': "4a2ef3bada800cae2accaf8b7b4982ab",
                'referer': 'https://pos.baidu.com/qcxm?conwid=953&conhei=286&rdid=5691515&dc=3&di=u5691515&s1=2609530563&s2=557570360&tr=1635163039&mt=d4ba0d880bb91b21&dri=0&dis=0&dai=1&ps=6283x280&enu=encoding&exps=110259,110252,110011&ant=0&aa=1&psi=3049dfea76e47976&dcb=___adblockplus_&dtm=HTML_POST&dvi=0.0&dci=-1&dpt=none&tpr=1635163039511&ti=%E6%A1%82%E6%9E%97%E8%A5%BF%E5%88%97%E8%BD%A6%E6%97%B6%E5%88%BB%E8%A1%A8%20%E6%A1%82%E6%9E%97%E8%A5%BF%E7%81%AB%E8%BD%A6%E6%97%B6%E5%88%BB%E8%A1%A8%20www.ip138.com&ari=2&ver=1021&dbv=2&drs=3&pcs=1263x150&pss=1263x6523&cfv=0&cpl=3&chi=3&cce=true&cec=UTF-8&tlm=1583472252&prot=2&rw=320&ltu=https%3A%2F%2Fqq.ip138.com%2Ftrain%2Fguangxi%2Fguilinxi.htm&ecd=1&uc=1280x680&pis=-1x-1&sr=1280x720&tcn=1635163040&qn=5ce7c33cff62d10e',
                'sec-fetch-mode': 'no-cors', 'sec-fetch-site': 'cross-site', 'Referer': 'https://www.ip138.com/',
-               'Cookie': 'PSTM=1607654896; BIDUPSID=FECB165CC9F489EA6A7514E041074334; CPROID=5BB9120713B1725A3A6044DAFF0B8244:FG=1; BDUSS=BZSTZDWDc1UTdzYjE0QnlhTjJsQVJxQXZFdUNVR3ZhbnlJYmZYWnJMQTM2emxnRVFBQUFBJCQAAAAAAAAAAAEAAACVxjAFcmVzdGU1MQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADdeEmA3XhJgdT; BDUSS_BFESS=BZSTZDWDc1UTdzYjE0QnlhTjJsQVJxQXZFdUNVR3ZhbnlJYmZYWnJMQTM2emxnRVFBQUFBJCQAAAAAAAAAAAEAAACVxjAFcmVzdGU1MQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADdeEmA3XhJgdT; __yjs_duid=1_13d3ec49865d5f05d5d5eddc3921955d1619662142038; MCITY=-%3A; BAIDUID=64B5506D548EDD5397C9CC8F7BBFD28F:FG=1; BDSFRCVID_BFESS=eiDOJeC6260sMJJHj4houRp7cgP1TKRTH6f312x0t6vx1dcL5r2aEG0PsU8g0KAbC92UogKKXgOTHw0F_2uxOjjg8UtVJeC6EG0Ptf8g0f5; H_BDCLCKID_SF_BFESS=fR-JoD85JDvje5rmbtOhq4tHeptDBMRZ5mAqotn7LhA2VqPzLCcl5f4RXnb-bPvHQR7naIQDth30sq8mbfnKeh4XQh6AW-j43bRTQbLy5KJvEj6g3bJ2hP-Uyn7MWh37bbRlMKoaMp78jR093JO4y4Ldj4oxJpOJ5JbMonLafD8KMKImejAhen8t2MoQetQq56r-Q-b25ROsKRrN55RqMf0gyxomtjDqtT7uaqcd2DbsDP5-K5JjbpOL3-RNLUkq5JADotPMbIQ-JKjg-UkhK6D_QttjQnJPfIkjahjt0KIKSJ7TyURibU47yhtj0q4Hb6b9BJcjfU5MSlcNLTjpQT8r5MDOK5OhJRQ2QJ8BJI_hhIJP; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; ISBID=64B5506D548EDD5397C9CC8F7BBFD28F:FG=1; ISUS=5BB9120713B1725A3A6044DAFF0B8244:FG=1; delPer=0; BAIDUID_BFESS=64B5506D548EDD5397C9CC8F7BBFD28F:FG=1; PSINO=1; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; H_PS_PSSID=34834_34886_34445_34530_34068_31660_34584_34517_34830_34578_34813_26350_34828'}
+               'Cookie': 'PHPSESSID=qrfs816mbt3lsfb9hcah85882a; ASPSESSIONIDSSSRDSDA=PALHOMEDJCKNIADBHMKBDJJN; _ga=GA1.2.1042137714.1635159183; Hm_lvt_ecdd6f3afaa488ece3938bcdbb89e8da=1635159195; Hm_lpvt_ecdd6f3afaa488ece3938bcdbb89e8da=1635159195; Hm_lvt_ee874a70e56b8f2f93f21f9beacd979a=1635307575,1635307581,1635314577,1635318055; Hm_lpvt_ee874a70e56b8f2f93f21f9beacd979a=1635318055'}
     # headers[':authority']= 'lupic.cdn.bcebos.com'
     # headers[':method']= 'GET'
     # headers[':scheme']= 'https'
@@ -137,5 +137,12 @@ if __name__ == '__main__':
     # print(df)
     # t(1, 2, de='111',be='ccc')
     # print(5%10)
-    pass
+
+    # df.to_excel('train_berth_detail.xlsx', index=False)
+
+    detail_df = read_sql('select distinct train_id from train_berth_detail')
+    station_df = read_sql('select distinct id from station_trains')
+
+    no_match_df = detail_df.loc[~detail_df['train_id'].isin(station_df['id'])]
+    print(f'没有 关联的train_id 的数量是 {no_match_df.shape[0]}')
 

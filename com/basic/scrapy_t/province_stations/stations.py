@@ -3,6 +3,7 @@ import time
 
 import pandas as pd
 from requests_html import HTMLSession
+import uuid
 
 from basic.scrapy_t.province_stations.tools import get_random_headers, \
     read_sql, is_duplicate, to_db
@@ -15,6 +16,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger(__name__)
 
 session = HTMLSession()
+
+pause_time = 0.06 * 3600
 
 
 def get_link_df():
@@ -68,21 +71,21 @@ def load_timetable_by_station(station):
     获取某个站点对应的  时刻表
     :return:
     """
-    station_name = station['station_name']
-    schedule_table = session.get(station['link'], headers=get_random_headers()).html.find(
-        'table', first=True)
+    try:
 
-    s_df = pd.DataFrame(
-        [{'province_name': station['province_name'], 'station_name': station_name, 'train_no': a.text,
-          'link': a.absolute_links.pop()} for a in
-         schedule_table.find('a')])
+        station_name = station['station_name']
+        schedule_table = session.get(station['link'], headers=get_random_headers()).html.find(
+            'table', first=True)
 
-    to_db(s_df, 'station_timetable', logger, f'{station_name}的时刻表')
+        s_df = pd.DataFrame(
+            [{'province_name': station['province_name'], 'station_name': station_name, 'train_no': a.text,
+              'link': a.absolute_links.pop()} for a in
+             schedule_table.find('a')])
 
-
-# 全局变量 便于批量插入数据
-global train_arr
-train_arr = []
+        to_db(s_df, 'station_timetable', logger, f'{station_name}的时刻表')
+    except Exception as e:
+        logger.error(f'获取时刻表内的 每个车次的途径站时 出错, 出错信息为:{e}, 再等 {pause_time / 3600} 小时后请求')
+        time.sleep(pause_time)
 
 
 def load_trans_by_timetable(timetable):
@@ -90,17 +93,34 @@ def load_trans_by_timetable(timetable):
     获取时刻表内的 每个车次的途径站
     :return:
     """
-    station_name, province_name, train_no, link = timetable['station_name'], timetable['province_name'], timetable[
-        'train_no'], timetable['link']
+    try:
+        station_name, province_name, train_no, link = timetable['station_name'], timetable['province_name'], timetable[
+            'train_no'], timetable['link']
 
-    train_table = session.get(link, headers=get_random_headers()).html.find('table')[1]
-    global train_arr
-    train_arr.append({'province_name': province_name, 'station_name': station_name, 'train_no': train_no,
-                      'site': ','.join([a.text for a in train_table.find('a')])}
-                     )
-    if len(train_arr) % 100 == 0:
-        to_db(pd.DataFrame(train_arr), 'station_trains', logger, '途径站')
-        train_arr = []
+        content = session.get(link, headers=get_random_headers()).html
+        # 1.生成列车的概况
+        info_arr = [text.replace('：', ':').split(':')[1] for text in content.find('table')[0].text.split('\n')]
+
+        train_id = str(uuid.uuid4())
+        train_data = {'id': train_id, 'province_name': province_name, 'station_name': station_name,
+                      'train_no': train_no,
+                      'site': ','.join([a.text for a in content.find('table')[1].find('a')]),
+                      'train_type': info_arr[0], 'full_elapsed': info_arr[1], 'full_distance': info_arr[2]}
+
+        # 2. 生成各个站点的详细信息_并直接落地
+        berth_data = [berth.text.split('\n') for berth in content.find('table')[1].find('tr')[1:]]
+        berth_df = pd.DataFrame(
+            [{'id': str(uuid.uuid4()), 'train_id': train_id, 'order': data[0], 'station_name': data[1],
+              'arrive_time': data[2], 'depart_time': data[3], 'elapsed_time': data[4], 'mileage': data[5]} for data in
+             berth_data])
+
+        # 3.数据落地_
+        to_db(pd.DataFrame(train_data, index=[1]), 'station_trains', logger, '车次的概览数据')
+        to_db(berth_df, 'train_berth_detail', logger, '车次的详情数据')
+
+    except Exception as e:
+        logger.error(f'获取时刻表内的 每个车次的途径站时 出错, 出错信息为:{e}, 再等 {pause_time / 3600}个小时后请求')
+        time.sleep(pause_time)
 
 
 def start_entry():
@@ -114,46 +134,42 @@ def start_entry():
         time.sleep(10 * 2)
     logger.info(f'获取站点的数据成功.')
 
-    # 3. 获取 站点内的时刻表, 排除已存储的站点  TODO 额外增量四川条件待去除
-    df = read_sql("select * from province_stations where province_name = '四川'")
-    is_stored_stations = read_sql("select DISTINCT(station_name) from station_timetable where province_name = '四川'")
+
+def timetable_entry():
+    """
+    3. 获取 站点内的时刻表 -- 除已存储的站点
+    :return:
+    """
+    df = read_sql("select * from province_stations ")
+    is_stored_stations = read_sql("select DISTINCT(station_name) from station_timetable ")
     df = df[~df['station_name'].isin(is_stored_stations['station_name'].values)]
+    logger.info(f' 开始站点内的时刻表信息: 已存储条数:{is_stored_stations.shape[0]}, 剩余数:{df.shape[0]}')
 
     for index, row in df.iterrows():
         load_timetable_by_station(row)
         time.sleep(10 * 1)
+
     logger.info(f'获取全部站点中的时刻表数据成功.')
 
 
 def trains_entry():
     """
-    获取时刻表内的 每个车次的途径站, (直接筛选掉 已存储的数据)
+    4. 最终结果: 获取时刻表内的 每个车次的途径站, (直接筛选掉 已存储的数据)
     :return:
     """
-    df = read_sql("select * from station_timetable where province_name = '四川'")
+    df = read_sql("select * from station_timetable")  # where province_name = '四川'
     df['flag'] = df['station_name'] + '_' + df['train_no']
     is_stored_df = read_sql("select CONCAT(station_name,'_',train_no) flag from station_trains")
     df = df[~df['flag'].isin(is_stored_df['flag'].values)]
+    logger.info(f' 开始获取时刻表内的每个车次的途径站信息: 已存储条数:{is_stored_df.shape[0]}, 剩余数:{df.shape[0]}')
 
     for index, row in df.iterrows():
-        try:
-            load_trans_by_timetable(row)
-            time.sleep(10 * 0.8)
-        except Exception as e:
-            logger.info(f'获取时刻表内的 每个车次的途径站时 出错, 出错信息为:{e}, 再等 3个小时后请求')
-            time.sleep(3600 * 3)
-
-    # 将剩余的 "余数"数据存储
-    global train_arr
-    if len(train_arr) > 0:
-        to_db(pd.DataFrame(train_arr), 'station_trains', logger, '途径站')
-        train_arr = []
+        load_trans_by_timetable(row)
+        time.sleep(10 * 1)
 
     logger.info(f'获取时刻表内的 每个车次的途径站数据成功.')
 
 
 if __name__ == '__main__':
-    # while True:
-    #     run_pending()
-    #     time.sleep(1)
+    # timetable_entry()
     trains_entry()
