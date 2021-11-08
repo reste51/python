@@ -8,13 +8,15 @@ import ply.lex as lex
 
 # token 的列表
 tokens = (
+    'EQUAL',
     'NUMBER',
     'PLUS',
     'MINUS',
     'TIMES',
     'DIVIDE',
     'LPAREN',
-    'RPAREN',
+    'RPAREN'
+
 )
 
 # 简单token 的表达式
@@ -24,7 +26,7 @@ t_TIMES = r'\*'
 t_DIVIDE = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-
+t_EQUAL= r'='
 
 # A regular expression rule with some action code
 def t_NUMBER(t):
@@ -56,7 +58,7 @@ lexer = lex.lex()
 # Test it out
 data = '''
  3 + 4 * 10
-   + -20 *2
+   + -20 *2 = 90
  '''
 
 # Give the lexer some input

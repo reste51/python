@@ -157,9 +157,9 @@ def trains_entry():
     4. 最终结果: 获取时刻表内的 每个车次的途径站, (直接筛选掉 已存储的数据)
     :return:
     """
-    df = read_sql("select * from station_timetable")  # where province_name = '四川'
+    df = read_sql("select * from station_timetable where province_name = '四川'")
     df['flag'] = df['station_name'] + '_' + df['train_no']
-    is_stored_df = read_sql("select CONCAT(station_name,'_',train_no) flag from station_trains")
+    is_stored_df = read_sql("select CONCAT(station_name,'_',train_no) flag from station_trains where province_name = '四川' ")
     df = df[~df['flag'].isin(is_stored_df['flag'].values)]
     logger.info(f' 开始获取时刻表内的每个车次的途径站信息: 已存储条数:{is_stored_df.shape[0]}, 剩余数:{df.shape[0]}')
 

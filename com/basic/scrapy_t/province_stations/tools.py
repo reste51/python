@@ -125,6 +125,31 @@ def to_db(df, table_name, logger, desc):
 #     print(kwargs, type(kwargs))
 
 
+def get_left_sc():
+    """
+    获取 四川省内 剩余的数据量
+    :return:
+    """
+    df = read_sql("select * from station_timetable where province_name = '四川'")
+    df['flag'] = df['station_name'] + '_' + df['train_no']
+    is_stored_df = read_sql(
+        "select CONCAT(station_name,'_',train_no) flag from station_trains where province_name = '四川' ")
+    df = df[~df['flag'].isin(is_stored_df['flag'].values)]
+    print(f' 开始获取时刻表内的每个车次的途径站信息: 已存储条数:{is_stored_df.shape[0]}, 剩余数:{df.shape[0]}')
+
+
+def validate_strains_data():
+    """
+    校验数据的合法性,  两个 取交集查看
+    :return:
+    """
+    station_df = read_sql('select distinct id from station_trains where province_name = "四川"')
+    detail_df = read_sql('select distinct train_id from train_berth_detail  ')
+
+    match_df = pd.merge(station_df,detail_df,left_on='id', right_on='train_id')
+    print(f'关联的train_id 的数量是 {match_df.shape[0]}')
+
+
 if __name__ == '__main__':
     # get_ip()
     # df = read_sql('select * from province_link')
@@ -140,9 +165,6 @@ if __name__ == '__main__':
 
     # df.to_excel('train_berth_detail.xlsx', index=False)
 
-    detail_df = read_sql('select distinct train_id from train_berth_detail')
-    station_df = read_sql('select distinct id from station_trains')
-
-    no_match_df = detail_df.loc[~detail_df['train_id'].isin(station_df['id'])]
-    print(f'没有 关联的train_id 的数量是 {no_match_df.shape[0]}')
+    get_left_sc()
+    validate_strains_data()
 
