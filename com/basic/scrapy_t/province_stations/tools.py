@@ -143,11 +143,17 @@ def validate_strains_data():
     校验数据的合法性,  两个 取交集查看
     :return:
     """
-    station_df = read_sql('select distinct id from station_trains where province_name = "四川"')
+    station_df = read_sql('select distinct id from station_trains')
     detail_df = read_sql('select distinct train_id from train_berth_detail  ')
 
-    match_df = pd.merge(station_df,detail_df,left_on='id', right_on='train_id')
+    match_df = pd.merge(station_df, detail_df, left_on='id', right_on='train_id')
     print(f'关联的train_id 的数量是 {match_df.shape[0]}')
+
+
+def export_data():
+    read_sql("select * from station_trains where province_name in('四川', '重庆') ").to_excel('station_trains.xlsx',
+                                                                                 index=False)
+    read_sql('select * from train_berth_detail  ').to_excel('train_berth_detail.xlsx', index=False)
 
 
 if __name__ == '__main__':
@@ -165,6 +171,6 @@ if __name__ == '__main__':
 
     # df.to_excel('train_berth_detail.xlsx', index=False)
 
-    get_left_sc()
+    # get_left_sc()
     validate_strains_data()
-
+    # export_data()

@@ -1,0 +1,30 @@
+{
+      "uuid":"uuid",
+      "dxbh":"对象编号",
+      "dxsx":"对象属性",
+      "gldxbh":"关联对象编号",
+      "gldxsx":"关联对象属性",
+      "gjxxbh":"轨迹信息编号",
+      "bzgjbh":"比中轨迹编号",
+      "xxbzsj":"信息比中时间",
+      "xxbzdw":"信息比中单位",
+      "xxbzdwdm":"信息比中单位代码",
+      "dtxxlb":"动态信息类别",
+      "hdfssj":"活动发生时间",
+      "hdfsdd":"活动发生地点",
+      "hdfsddxzqh":"活动发生地点行政区划",
+      "hdfsdssshcs":"活动发生地所属社会场所",
+      "hdfsdssshcsdm":"活动发生地所属社会场所代码",
+      "hdfsdssgajg":"活动发生地所属公安机关",
+      "hdfsdssgajgdm":"活动发生地所属公安机关代码",
+      "hdfsdjd":"活动发生地经度",
+      "hdfsdwd":"活动发生地纬度",
+      "hdxgxx":{
+        "A0001":"111111",
+        "A0002":"222222"
+      },
+      "hdxxms":"活动信息描述",
+      "dtxxtgjg":"动态信息提供机构",
+      "dtxxtgjgdm":"动态信息提供机构代码"
+  }
+

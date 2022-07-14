@@ -25,3 +25,4 @@ score = clf.score(X_test,y_test)
 print(score)
 
 
+

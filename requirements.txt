@@ -1,3 +1,5 @@
+django-scheduler
+kafka
 elasticsearch6
 lxml
 matplotlib>3
@@ -7,4 +9,3 @@ pillow
 requests
 sklearn
 statsmodels
-mxnet

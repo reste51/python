@@ -1,0 +1,30 @@
+{
+      "uuid":"uuid",
+      "dxbh":"11111",
+      "dxsx":"x",
+      "gldxbh":"sd",
+      "gldxsx":"3213",
+      "gjxxbh":"12312",
+      "bzgjbh":"比中轨迹编号",
+      "xxbzsj":"信息比中时间",
+      "xxbzdw":"信息比中单位",
+      "xxbzdwdm":"信息比中单位代码",
+      "dtxxlb":"x",
+      "hdfssj":"活动发生时间",
+      "hdfsdd":"四川省成都市",
+      "hdfsddxzqh":"5101",
+      "hdfsdssshcs":"活动发生地所属社会场所",
+      "hdfsdssshcsdm":"001",
+      "hdfsdssgajg":"bbb",
+      "hdfsdssgajgdm":"213123",
+      "hdfsdjd":"21.89",
+      "hdfsdwd":"124.92.1",
+      "hdxgxx":{
+        "A0001":"111111",
+        "A0002":"222222"
+      },
+      "hdxxms":"活动信息描述",
+      "dtxxtgjg":"动态信息提供机构",
+      "dtxxtgjgdm":"动态信息提供机构代码"
+  }
+
