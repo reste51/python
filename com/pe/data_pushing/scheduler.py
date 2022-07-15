@@ -3,6 +3,7 @@ import schedule
 from com.pe.data_pushing.producer import Producer
 import uuid
 import json
+import os
 import time
 from com.pe.util.util import get_current_date
 import numpy as np
@@ -24,8 +25,10 @@ def concurrency_work(job_func):
 
 class Scheduler:
     def __init__(self):
+
         # 模型数据
-        with open('./datas/model.json', mode='r+', encoding='utf-8') as fp:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(f'{dir_path}/datas/model.json', mode='r+', encoding='utf-8') as fp:
             self.model_data = json.loads(fp.read(), encoding='utf-8')
 
         # 生产消息对象
@@ -69,7 +72,7 @@ class Scheduler:
         self.roadway_producer.producing_msg(datas)
 
 
-if __name__ == '__main__':
+def run_jobs():
     scheduler = Scheduler()
     schedule.every(12).seconds.do(concurrency_work, scheduler.hotel_trails)
     schedule.every(15).seconds.do(concurrency_work, scheduler.roadway_trails)
@@ -77,3 +80,14 @@ if __name__ == '__main__':
 
     while 1:
         schedule.run_pending()
+
+
+# if __name__ == '__main__':
+#     print(__file__)
+#     scheduler = Scheduler()
+#     schedule.every(12).seconds.do(concurrency_work, scheduler.hotel_trails)
+#     schedule.every(15).seconds.do(concurrency_work, scheduler.roadway_trails)
+#     schedule.every(18).seconds.do(concurrency_work, scheduler.netbar_trails)
+#
+#     while 1:
+#         schedule.run_pending()

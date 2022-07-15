@@ -1,0 +1,68 @@
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/static/layui/css/layui.css">
+    <script src="/static/layui/layui.js"></script>
+</head>
+
+<body>
+<div class="layui-row">
+  <form class="layui-form" action="">
+    <div class="layui-form-item">
+      <div class="layui-inline">
+        <label class="layui-form-label">身份证号码</label>
+        <div class="layui-input-inline">
+          <input type="text" name="zjhm" lay-verify="required" lay-reqtext="证件号码不能为空"
+                 autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
+        </div>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">离开成都布控</button>
+        <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+<script>
+  layui.use(function(){
+  var layer = layui.layer
+  ,form = layui.form
+  ,laydate = layui.laydate
+  ,util = layui.util
+  ,$=layui.$;
+
+
+  //日期
+  laydate.render({
+    elem: '#date1'
+    ,value: new Date()
+    ,isInitValue: true
+  });
+  laydate.render({
+    elem: '#date2'
+    ,value: new Date()
+    ,isInitValue: true
+  });
+   //提交事件
+  form.on('submit(demo1)', function(data){
+    $.ajax({
+      url:'/pe/p_cd2',
+      data: data.field,
+      success:function(result){
+        if(result.code==0){
+          layer.msg('布控成功',{icon:1, time:2000})
+          //$(dom[0]).addClass('layui-btn-disabled')
+        }else{
+          layer.msg('布控出错！',{icon:2, time:2000})
+        }
+      }
+    });
+
+    return false;
+  });
+
+});
+</script>
+
