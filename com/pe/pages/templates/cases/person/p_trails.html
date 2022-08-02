@@ -11,15 +11,15 @@
       <div class="layui-inline">
         <label class="layui-form-label">布控时间</label>
         <div class="layui-input-block">
-          <input type="text" name="date1" id="date1" autocomplete="off" class="layui-input">
+          <input type="text" name="date1" id="date1" lay-verify="required" lay-reqtext="布控开始时间不能为空!"  autocomplete="off" class="layui-input">
           -
-          <input type="text" name="date2" id="date2" autocomplete="off" class="layui-input">
+          <input type="text" name="date2" id="date2" lay-verify="required" lay-reqtext="布控开始时间不能为空!"  autocomplete="off" class="layui-input">
         </div>
       </div>
       <div class="layui-inline">
         <label class="layui-form-label">身份证号码</label>
         <div class="layui-input-inline">
-          <input type="text" name="zjhm" lay-verify="required" lay-reqtext="证件号码不能为空？"  autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
+          <input type="text" name="zjhm" lay-verify="required" lay-reqtext="证件号码不能为空!"  autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
         </div>
       </div>
       <div class="layui-inline">
@@ -33,32 +33,60 @@
     </div>
     <div class="layui-form-item">
       <div class="layui-input-block">
-        <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">布控</button>
+        <button type="submit" class="layui-btn" lay-submit="" id="btn" lay-filter="demo1">布控</button>
         <button type="reset" class="layui-btn layui-btn-primary">重置</button>
       </div>
     </div>
   </form>
-</div>
-</body>
-<script>
-  layui.use(function(){
+  <!-- 信息展示 -->
+  <div class="layui-row" id="subscribeMsg" style="display:none;">
+    <div class="layui-card layui-col-md5">
+      <div class="layui-card-header">布控信息</div>
+      <div class="layui-card-body" id="subBody">
+      </div>
+    </div>
+     <div class="layui-card layui-col-md7">
+      <div class="layui-card-header">比中信息</div>
+      <div class="layui-card-body" id="comBody">
+      </div>
+    </div>
+  </div>
+  <script>
+isWsOk = false;
+// 创建websocket 逻辑
+var websocket = new WebSocket('ws://localhost:8765');
+websocket.onopen = function(evt){
+  websocket.send('this message comes from browser!');
+  console.log('连接成功！');
+  isWsOk = true;
+}
+websocket.onmessage = function(evt){
+  $('#comBody').html(evt.data)
+}
+
+layui.use(function(){
   var layer = layui.layer
   ,form = layui.form
   ,laydate = layui.laydate
   ,util = layui.util
   ,$=layui.$;
 
+  // 前一天的数据
+  var currentDate = new Date();
+  currentDate.setDate(currentDate.getDate()-1);
 
   //日期
   laydate.render({
     elem: '#date1'
-    ,value: new Date()
+    ,value: currentDate
     ,isInitValue: true
+    ,type:'datetime'
   });
   laydate.render({
     elem: '#date2'
     ,value: new Date()
     ,isInitValue: true
+    ,type:'datetime'
   });
    //提交事件
   form.on('submit(demo1)', function(data){
@@ -68,7 +96,21 @@
       success:function(result){
         if(result.code==0){
           layer.msg('布控成功',{icon:1, time:2000})
-          //$(dom[0]).addClass('layui-btn-disabled')
+          $("#btn").addClass('layui-btn-disabled');
+          // 回显响应信息
+          var data = result.data[0]
+          var ywid = data['rules'][0]['dxywzjbh'];
+          var text = '错误数: ' + data['errorCount']+', 成功数: '+data['successCount'] + '<br>';
+          text += '任务编号: ' + data['rwbh'] + '<br>';
+          text += '对象业务编号: ' + ywid + '<br>';
+          text += '对象比对状态: ' + data['rules'][0]['remark'];
+          $("#subBody").html(text);
+          $("#subscribeMsg").show();
+
+          //发送消息
+          if(isWsOk){
+            websocket.send(ywid);
+          }
         }else{
           layer.msg('布控出错！',{icon:2, time:2000})
         }
@@ -77,7 +119,8 @@
 
     return false;
   });
-
 });
 </script>
+</div>
+</body>
 

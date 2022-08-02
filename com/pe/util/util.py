@@ -3,7 +3,7 @@ import time
 import datetime
 
 
-def get_logger(name, level):
+def get_logger(name, level = logging.INFO):
     """
     获取日志对象
     :param name:
