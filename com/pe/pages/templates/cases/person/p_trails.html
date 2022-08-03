@@ -17,9 +17,9 @@
         </div>
       </div>
       <div class="layui-inline">
-        <label class="layui-form-label">身份证号码</label>
+        <label class="layui-form-label">布控编号</label>
         <div class="layui-input-inline">
-          <input type="text" name="zjhm" lay-verify="required" lay-reqtext="证件号码不能为空!"  autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
+          <input type="text" name="zjhm" lay-verify="required" lay-reqtext="布控编号不能为空!"  autocomplete="off" placeholder="请输入身份证号码" class="layui-input">
         </div>
       </div>
       <div class="layui-inline">
@@ -52,16 +52,19 @@
     </div>
   </div>
   <script>
+$=layui.$
 isWsOk = false;
 // 创建websocket 逻辑
-var websocket = new WebSocket('ws://localhost:8765');
+var websocket = new WebSocket('ws://192.168.31.238:8000');
+// var websocket = new WebSocket('ws://localhost:8765');
 websocket.onopen = function(evt){
-  websocket.send('this message comes from browser!');
+  // websocket.send('this message comes from browser!');
   console.log('连接成功！');
   isWsOk = true;
 }
 websocket.onmessage = function(evt){
-  $('#comBody').html(evt.data)
+  console.log(evt.data);
+  $('#comBody').append(evt.data)
 }
 
 layui.use(function(){
@@ -69,7 +72,7 @@ layui.use(function(){
   ,form = layui.form
   ,laydate = layui.laydate
   ,util = layui.util
-  ,$=layui.$;
+  ;
 
   // 前一天的数据
   var currentDate = new Date();
@@ -110,6 +113,7 @@ layui.use(function(){
           //发送消息
           if(isWsOk){
             websocket.send(ywid);
+
           }
         }else{
           layer.msg('布控出错！',{icon:2, time:2000})

@@ -15,7 +15,7 @@ root_path = 'cases/person'
 resource_data = {'netbar': '8ac6664f825c3d7301825c46b03f0000',
                  'hotel': 'ff80808182580aa20182581000e10004',
                  'roadway': 'ff80808182580aa20182581c94de000f'}
-app_id = '111659424359062'
+app_id = '111659441725828'
 server_url = f'http://10.68.124.63:9020/subscribe/singleId?appId={app_id}'
 
 
