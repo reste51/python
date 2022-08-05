@@ -3,7 +3,7 @@ web socket server
 """
 import asyncio
 import websockets
-import threading
+
 from com.pe.util.util import get_logger
 from com.pe.ws_server.consumer_kafka import Kafka_Consumer
 
